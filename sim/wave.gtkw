@@ -1,0 +1,68 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Tue Jun 22 00:46:48 2021
+[*]
+[dumpfile] "/home/jota/Documents/jg-fossh/Adder/sim/dump.fst"
+[dumpfile_mtime] "Tue Jun 22 00:45:15 2021"
+[dumpfile_size] 7481
+[savefile] "/home/jota/Documents/jg-fossh/Adder/sim/wave.gtkw"
+[timestart] 14310
+[size] 1366 666
+[pos] -1 -1
+*-12.510683 50000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] .
+[treeopen] .TB_TOP.
+[sst_width] 42
+[signals_width] 254
+[sst_expanded] 0
+[sst_vpaned_height] 179
+@200
+-Compile Time Parameters
+@420
+TB_TOP.dut.P_ADDER_DATA_MSB
+@200
+-
+-Local Parameters
+@420
+TB_TOP.dut.L_DATA1_LSB
+TB_TOP.dut.L_DATA1_MSB
+@200
+-
+-Clocks & Resets
+@28
+TB_TOP.dut.i_clk
+TB_TOP.dut.i_reset_sync
+@200
+-
+-Wishbone Pipeline Slave
+@22
+TB_TOP.dut.i_wb4_slave_data[15:0]
+@28
+TB_TOP.dut.i_wb4_slave_stb
+TB_TOP.dut.i_wb4_slave_tgd
+TB_TOP.dut.o_wb4_slave_stall
+TB_TOP.dut.o_wb4_slave_ack
+@200
+-
+-Wishbone Pipeline Master
+@28
+TB_TOP.dut.o_wb4_master_stb
+@22
+TB_TOP.dut.o_wb4_master_data[7:0]
+@28
+TB_TOP.dut.i_wb4_master_stall
+TB_TOP.dut.i_wb4_master_ack
+@200
+-
+-Adder Process
+@29
+TB_TOP.dut.r_adder_stb
+@28
+TB_TOP.dut.r_adder_ack
+@22
+TB_TOP.dut.r_adder_result[7:0]
+@28
+TB_TOP.dut.r_adder_stall
+TB_TOP.dut.w_adder_stall
+[pattern_trace] 1
+[pattern_trace] 0
