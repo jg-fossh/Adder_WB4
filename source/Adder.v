@@ -33,7 +33,7 @@
 // File name     : Adder.v
 // Author        : Jose R Garcia
 // Created       : 30-05-2021 09:09
-// Last modified : 2021/06/22 19:28:38
+// Last modified : 2021/06/26 09:30:55
 // Project Name  : Adder
 // Module Name   : Adder
 // Description   : Performs addition or substraction over two inputs.
@@ -75,14 +75,13 @@ module Adder #(
   reg [P_ADDER_DATA_MSB:0] r_adder_result;
   reg                      r_adder_stall;
   // Control wires (indicate when this module is available)
- //  wire w_adder_stall = (r_adder_stall==1'b0 || (i_wb4_master_stall==1'b0 && r_adder_stall==1'b1)) ? 1'b0 : 1'b1;
   wire w_adder_stall = r_adder_stall & i_wb4_master_stall;
 
   ///////////////////////////////////////////////////////////////////////////////
   //            ********      Architecture Declaration      ********           //
   ///////////////////////////////////////////////////////////////////////////////
 
-  //
+  // WB4 Slave Interface ouput wires
   assign o_wb4_slave_ack   = r_adder_ack;
   assign o_wb4_slave_stall = w_adder_stall;
   
@@ -122,14 +121,14 @@ module Adder #(
         r_adder_ack <= 1'b0;
       end
       else begin
-        // 
+        // When w_adder_stall == 1 
         r_adder_stb <= r_adder_stb;
         r_adder_ack <= 1'b0;
       end
     end
   end // Adder_Process
   
-  // WB Write interface connections
+  // WB4 Master Write Interface wires
   assign o_wb4_master_stb  = r_adder_stb;
   assign o_wb4_master_data = r_adder_result;
 
