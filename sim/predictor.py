@@ -33,7 +33,7 @@
 # File name     : predictor.py
 # Author        : Jose R Garcia
 # Created       : 2020/11/05 20:08:35
-# Last modified : 2021/06/23 14:34:43
+# Last modified : 2021/06/27 00:22:44
 # Project Name  : ORCs
 # Module Name   : predictor
 # Description   : Non Time Consuming R32I model.
@@ -104,7 +104,7 @@ class predictor(UVMSubscriber):
         """
         if (self.data_length >= 8):
             # translate data length from width in bits to width in hex characters
-            data_length = int(self.data_length / (4*2))
+            data_length = int(self.data_length / (8))
         else:
             data_length = self.data_length
 
@@ -114,7 +114,7 @@ class predictor(UVMSubscriber):
             # generate the result, convert it to hex, remove the '0x' appended by hex() and remove the overflow bit.
             result_int = self.hex_to_int(factor0, self.data_length) + self.hex_to_int(factor1, self.data_length)
             result_and_carry = hex(result_int)
-            if (result_int >= 2**data_length):
+            if (result_int > 2**self.data_length):
                 result = self.hex_to_int(result_and_carry[3:], self.data_length)
             else:
                 result = self.hex_to_int(result_and_carry[2:], self.data_length)
@@ -163,6 +163,9 @@ class predictor(UVMSubscriber):
         """
         data_in = hex(int_value)
         data_in = data_in[2:] # Remove the '0x'
+        if (int_value > 255):
+            data_in = "0"+data_in
+        
         factor0 = data_in[factor_length:]
         # factor0 = '0x' + data_in[factor_length:]
         factor1 = data_in[:factor_length]

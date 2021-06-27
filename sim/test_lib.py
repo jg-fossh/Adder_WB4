@@ -33,7 +33,7 @@
 # File name     : test_lib.py
 # Author        : Jose R Garcia
 # Created       : 2020/11/05 19:26:21
-# Last modified : 2021/06/25 00:01:00
+# Last modified : 2021/06/27 00:05:30
 # Project Name  : Adder
 # Module Name   : test_lib
 # Description   : Collection of tests available for this module.
@@ -65,9 +65,10 @@ class test_base(UVMTest):
        Definition: Contains functions, tasks and methods.
     """
 
-    def __init__(self, name="test_base", parent=UVMTest):
+    def __init__(self, name="test_base", parent=None):
         super().__init__(name, parent)
         self.test_pass = True
+        self.err_msg = ""
         self.tb_env = None
         self.tb_env_config = None
         self.wb4_master_agent_cfg = None
@@ -140,8 +141,8 @@ class test_base(UVMTest):
            self.test_pass = True
         else:
            self.test_pass = False
-           self.err_msg += '\nMatches :' + self.tb_env.scoreboard.m_matches
-           self.err_msg += '\nMismatches :' + self.tb_env.scoreboard.m_mismatches
+           self.err_msg += '\nMatches : ' + str(self.tb_env.scoreboard.m_matches)
+           self.err_msg += '\nMismatches : ' + str(self.tb_env.scoreboard.m_mismatches)
 
     def report_phase(self, phase):
         if self.test_pass:
@@ -189,7 +190,7 @@ class default_test(test_base):
         
         # Create transactions to stimulate the slave interface
         increment_sum_seq = wb4_slave_single_write_seq("increment_sum_seq")
-        increment_sum_seq.data = self.count
+        increment_sum_seq.data = self.count * 2
         increment_sum_seq.strobe = 1
         increment_sum_seq.cycle = 1
         increment_sum_seq.data_tag = 0
@@ -197,12 +198,12 @@ class default_test(test_base):
         while self.count > 0:
             await increment_sum_seq.start(wb4_slave_sqr)
             # Count decrement data for next sequence.
-            self.count = self.count - 1
+            self.count -= 1
             increment_sum_seq = wb4_slave_single_write_seq("increment_sum_seq")
             increment_sum_seq.cycle = 1
             increment_sum_seq.strobe = 1
             increment_sum_seq.data_tag = 0
-            increment_sum_seq.data = self.count
+            increment_sum_seq.data = self.count * 2
 
 
         await increment_sum_seq.start(wb4_slave_sqr)
